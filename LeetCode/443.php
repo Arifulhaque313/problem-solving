@@ -1,38 +1,24 @@
 <?php
-    function compress($chars) {
-        $temp = 0;
-    $result = [];
+    function compress(&$chars) {
+        $anchor = $write = 0;
 
-    for ($i = 0; $i < count($chars) - 1; $i++) {
-        $value = $chars[$i];
-        if ($value == $chars[$i + 1]) {
-            $temp++;
-        } else {
-            $result[] = $value;
-            if ($temp > 0) {
-                if ($temp + 1 >= 10) {
-                    $result[] = intval(($temp + 1) / 10);
-                    $result[] = ($temp + 1) % 10;
-                } else {
-                    $result[] = $temp + 1;
+        for ($read = 0; $read < count($chars); $read++) {
+            if ($read + 1 == count($chars) || $chars[$read] != $chars[$read + 1]) {
+                $chars[$write++] = $chars[$anchor];
+                if ($read > $anchor) {
+                    $len = $read - $anchor + 1;
+                    if ($len > 1) {
+                        $lenStr = strval($len);
+                        for ($i = 0; $i < strlen($lenStr); $i++) {
+                            $chars[$write++] = $lenStr[$i];
+                        }
+                    }
                 }
+                $anchor = $read + 1;
             }
-            $temp = 0;
         }
-    }
 
-    // Handle the last character separately
-    $result[] = $chars[count($chars) - 1];
-    if ($temp > 0) {
-        if ($temp + 1 >= 10) {
-            $result[] = intval(($temp + 1) / 10);
-            $result[] = ($temp + 1) % 10;
-        } else {
-            $result[] = $temp + 1;
-        }
-    }
-
-    return $result;
+        return $write;
     }
 
    print_r(compress(["a","a","b","b","c","c","c"]));
