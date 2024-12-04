@@ -15,8 +15,6 @@
 
 
         return $mergeString;
-        // return max(strlen($word1), strlen($word2));
-    
     }
 
     
