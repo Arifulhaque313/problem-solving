@@ -25,7 +25,7 @@
             }
         }
 
-        return $array;
+        return implode('', $array);
     }
 
     print_r(reverseVowels("leetcode"));
