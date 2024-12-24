@@ -1,8 +1,6 @@
 <?php
     function removeElement($nums, $val) {
-        $newArr = array_diff($nums, [3]);
-
-        return count($newArr);
+        return count(array_diff($nums, [$val]));
     }
 
     removeElement([3,2,2,3], 3);
