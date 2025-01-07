@@ -11,4 +11,3 @@
         }
         return $j == strlen($t) ? true : false;
     }
-?>
